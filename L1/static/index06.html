@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel" defer>
+
+        let info
+        loadJSON("http://localhost:3000", (data) => {
+            info = data
+            console.log("INFO.ITEMS : ", info.items)
+
+            ReactDOM.render(
+                <List />,
+                document.getElementById('react-app')
+            )
+        })
+
+        class List extends React.Component {
+            render() {
+                let tab = []
+                for (let i = 0; i < info.items.length; i++) {
+                    tab.push(<Product
+
+                        obj={info.items[i]}
+                        key={i}
+                    // id={info.items[i].id}
+                    // product_url={info.items[i].product_url}
+                    // title={info.items[i].title}
+                    // slogan={info.items[i].slogan}
+                    // description={info.items[i].description}
+                    // stars={info.items[i].stars}
+                    // category={info.items[i].category}
+                    // img_url={info.items[i].img_url}
+                    // price={info.items[i].price}
+                    // key={i}
+
+                    />)
+                }
+                return (tab)
+            }
+        }
+
+        class Product extends React.Component {
+            render() {
+                let params = this.props.obj
+                return (
+                    <div className="product">
+                        <h1>{params.title}</h1>
+                    </div>
+                )
+            }
+        }
+
+        class Stars extends React.Component {
+            render() {
+                return (
+                    <p>COMPONENT STARS</p>
+                )
+            }
+        }
+
+        function loadJSON(path, success, error) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        success(JSON.parse(xhr.responseText));
+                    }
+                    else {
+                        error(xhr);
+                    }
+                }
+            };
+            xhr.open('GET', path, true);
+            xhr.send();
+        }
+    </script>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+
+</html>

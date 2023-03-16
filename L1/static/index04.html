@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel" defer>
+
+        let data = [
+            {
+                id: 0,
+                quantity: 1,
+                name: "masło"
+            },
+            {
+                id: 1,
+                quantity: 5,
+                name: "mleko"
+            },
+            {
+                id: 2,
+                quantity: 2,
+                name: "bulka"
+            },
+            {
+                id: 3,
+                quantity: 21,
+                name: "kajzerka"
+            }
+        ]
+
+        class ListItem extends React.Component {
+            render() {
+                return (
+                    <p>LP.{this.props.id} | ILOSC: {this.props.quantity} x {this.props.name}</p>
+                )
+            }
+        }
+
+        class List extends React.Component {
+            render() {
+                let tab = []
+
+                for(let i = 0; i < data.length; i++){
+                    tab.push(<ListItem key={i} id={data[i].id} quantity={data[i].quantity} name={data[i].name} />)
+                }
+                
+                return (tab)
+            }
+        }
+
+        ReactDOM.render(
+            <List />,
+            document.getElementById('react-app')
+        )
+
+    </script>
+    </script>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+
+</html>

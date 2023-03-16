@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel" defer>
+
+        let data = [
+            {
+                id: 0,
+                zadanie: "kupic",
+                przedmiot: "maslo",
+                ile: 2,
+                kolor: "#666666"
+            },
+            {
+                id: 1,
+                zadanie: "wylac",
+                przedmiot: "mleko",
+                ile: 6,
+                kolor: "#A3A310"
+            },
+            {
+                id: 2,
+                zadanie: "upiec",
+                przedmiot: "chleb",
+                ile: 3,
+                kolor: "#BB1033"
+            }
+        ]
+
+        class Task extends React.Component {
+            render() {
+                // let styleColor = 
+                return (
+                    <li style="color: {this.props.kolor}">ID: {this.props.id} | Zadanie: {this.props.zadanie} {this.props.przedmiot} | Ile: {this.props.ile}</li>
+                )
+            }
+        }
+
+        class TaskList extends React.Component {
+            render() {
+                let t = data.map((elem, i) => {
+                    return <Task
+                        key={i}
+                        id={elem.id}
+                        zadanie={elem.zadanie}
+                        przedmiot={elem.przedmiot}
+                        ile={elem.ile}
+                        kolor={elem.kolor}
+                    />
+                })
+                return (
+                    <ul>
+                        {t}
+                    </ul>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <TaskList />,
+            document.getElementById('react-app')
+        )
+
+    </script>
+    </script>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+
+</html>
