@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+
+   <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+   <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+
+   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+   <script type="text/babel" defer>
+
+      const imagesData = [
+         { id: 1, name: "hamlet" },
+         { id: 2, name: "krzyzacy" },
+         { id: 3, name: "lalka" }
+      ]
+
+      class ImageList extends React.Component {
+         render() {
+            let data = this.props.data
+            let arr = []
+
+            for (let i = 0; i < data.length; i++) {
+               arr.push(<Image key={i} img={data[i]} />)
+            }
+
+            console.log(arr)
+            return (
+               <>
+                  {arr}
+               </>
+            )
+         }
+      }
+
+      class Image extends React.Component {
+         render() {
+            let name = this.props.img.name
+            return (
+               <>
+                  <p>{this.makeImageName(name)}</p>
+                  <img style={{ width: "200px" }} src={this.makeImageUrl(name)} />
+               </>
+            )
+         }
+
+         makeImageName(name) {
+            return name.charAt(0).toUpperCase() + name.slice(1);
+         }
+
+         makeImageUrl(name) {
+            return "gfx/" + name + ".jpg"
+         }
+      }
+
+      ReactDOM.render(
+         <ImageList data={imagesData} />,
+         document.getElementById('react-app')
+      )
+
+   </script>
+   </script>
+</head>
+
+<body>
+   <div id="react-app"></div>
+</body>
+
+</html>
