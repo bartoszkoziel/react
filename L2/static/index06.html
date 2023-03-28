@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            float: left;
+        }
+    </style>
+
+    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel" defer>
+        class Square extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    height: 300,
+                    color: {
+                        red: 255,
+                        green: 255,
+                        blue: 255
+                    }
+                }
+            }
+
+            render() {
+                return (
+                    <div style={{
+                        backgroundColor: this.getHexColor(this.state.color),
+                        height: this.state.height + "px",
+                        width: "200px"
+                    }}>
+                        <p>Height : {this.state.height}</p>
+                        <p>Color : {this.getHexColor(this.state.color)}</p>
+                        <button onClick={this.randomize} >RANDOM</button>
+                    </div>
+                )
+            }
+
+            getHexColor = (obj) => {
+                let colorString = "#" + obj.red.toString(16) + obj.green.toString(16) + obj.blue.toString(16)
+                return colorString
+            }
+
+            randomize = () => {
+                let newstate = this.state
+                newstate.height = Math.floor(Math.random() * 400) + 400
+                newstate.color = {
+                    red: Math.floor(Math.random() * 256),
+                    green: Math.floor(Math.random() * 256),
+                    blue: Math.floor(Math.random() * 256)
+                }
+
+                this.setState(newstate)
+            }
+        }
+
+        ReactDOM.render(
+            <>
+                <Square />
+                <Square />
+                <Square />
+            </>,
+            document.getElementById('react-app')
+        )
+
+    </script>
+</head>
+
+<body>
+    <div id="react-app"></div>
+</body>
+
+</html>

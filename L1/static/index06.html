@@ -12,6 +12,17 @@
 
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
+    <style>
+        .product {
+            float: left;
+            border: 1px solid black;
+            width: 400px;
+            margin: 0.5em;
+            text-align: center;
+            min-height: 500px;
+        }
+    </style>
+
     <script type="text/babel" defer>
 
         let info
@@ -30,20 +41,8 @@
                 let tab = []
                 for (let i = 0; i < info.items.length; i++) {
                     tab.push(<Product
-
                         obj={info.items[i]}
                         key={i}
-                    // id={info.items[i].id}
-                    // product_url={info.items[i].product_url}
-                    // title={info.items[i].title}
-                    // slogan={info.items[i].slogan}
-                    // description={info.items[i].description}
-                    // stars={info.items[i].stars}
-                    // category={info.items[i].category}
-                    // img_url={info.items[i].img_url}
-                    // price={info.items[i].price}
-                    // key={i}
-
                     />)
                 }
                 return (tab)
@@ -56,15 +55,9 @@
                 return (
                     <div className="product">
                         <h1>{params.title}</h1>
+                        <p>Price: {params.price} $</p>
+                        <img src={params.product_url} style={{ width: "200px" }} />
                     </div>
-                )
-            }
-        }
-
-        class Stars extends React.Component {
-            render() {
-                return (
-                    <p>COMPONENT STARS</p>
                 )
             }
         }

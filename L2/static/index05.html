@@ -14,48 +14,50 @@
 
    <script type="text/babel" defer>
 
-      class Food extends React.Component {
+      class Image extends React.Component {
          render() {
-            let food = this.props.food
+            let cena = this.props.cena
             return (
-               <h1>{food}</h1>
+               <>
+                  <h1>{cena}</h1>
+               </>
             )
          }
       }
 
-      class FoodList extends React.Component {
+      class ImageList extends React.Component {
          constructor() {
             super()
-            this.i = 0
             this.state = {
-               food: ["masło", "mleko", "chleb", "dżem"],
-               randomFood: "masło"
+               tab: []
             }
          }
 
          render() {
             return (
                <>
-                  <Food food={this.state.randomFood} />
-                  <Food food={this.state.randomFood} />
-                  <Food food={this.state.randomFood} />
-                  <button onClick={this.onButtonClick}>KLIK</button>
+                  <button onClick={() => { this.dodaj("tanie") }}>Dodaj Tanie</button>
+                  <button onClick={() => { this.dodaj("drogie") }}>Dodaj Drogie</button>
+                  <ul>
+                     {this.state.tab}
+                  </ul>
                </>
             )
          }
 
-         onButtonClick = () => {
-            let i = Math.floor(Math.random() * this.state.food.length)
+         dodaj = (cena) => {
             let newstate = this.state
-            newstate.randomFood = newstate.food[i]
+            newstate.tab.push(<li><Image cena={cena} /></li>)
+
             this.setState(newstate)
+            console.log(newstate)
          }
       }
 
       ReactDOM.render(
-         <FoodList />,
+         <ImageList />,
          document.getElementById('react-app')
-      );
+      )
 
    </script>
    </script>

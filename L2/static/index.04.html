@@ -15,11 +15,40 @@
    <script type="text/babel" defer>
 
       class Food extends React.Component {
+
+         constructor() {
+            super()
+            this.state = {
+               lubi: "nie"
+            }
+            this.cond = 0
+         }
+
          render() {
             let food = this.props.food
             return (
-               <h1>{food}</h1>
+               <div>
+                  <h1>{food}</h1>
+                  <p>LUBI: {this.state.lubi}</p>
+                  <button onClick={this.btnClick}>LUBI / NIELUBI</button>
+               </div>
             )
+         }
+
+         btnClick = () => {
+            if (this.state.lubi == "tak") {
+               this.setState({ lubi: "nie" })
+            } else if (this.state.lubi == "nie") {
+               this.setState({ lubi: "tak" })
+            }
+            this.cond = 1
+         }
+
+         componentDidUpdate(prevProps) {
+            if (this.cond = 1) {
+               this.setState({ lubi: "nie" })
+               this.cond = 0
+            }
          }
       }
 
@@ -57,7 +86,6 @@
          document.getElementById('react-app')
       );
 
-   </script>
    </script>
 </head>
 
