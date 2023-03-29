@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+
+
+   <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+   <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+
+   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+   <script type="text/babel" defer>
+
+      class MyCheckbox extends React.Component {
+         constructor() {
+            super()
+            this.state = {
+               checked: false
+            }
+         }
+
+         render() {
+            let data = this.props.data
+            return (
+               <p>{data.value} $
+                  <input
+                     type="checkbox"
+                     checked={this.state.checked}
+                     value={data.value}
+                     onChange={this.onCbClick}
+                  />
+                  _MyCheckbox
+               </p>
+            )
+         }
+
+         onCbClick = (e) => {
+            if (this.state.checked == false) this.setState({ checked: true })
+            else if (this.state.checked == true) this.setState({ checked: false })
+
+            console.log("TARGET.VALUE: ", e.target.value, " TARGET.CHECKED: ", e.target.checked)
+            this.props.toParent(e.target.value, event.target.checked)
+         }
+      }
+
+      class MyForm extends React.Component {
+         constructor() {
+            super()
+            this.state = {
+               array: [
+                  { checked: false, value: 1 },
+                  { checked: false, value: 2 },
+                  { checked: false, value: 3 },
+                  { checked: false, value: 10 },
+                  { checked: false, value: 20 },
+               ],
+               suma: 0
+            }
+         }
+
+         render() {
+            let arr = []
+            let sum = 0
+
+            for (let i = 0; i < this.state.array.length; i++) {
+               arr.push(<MyCheckbox key={i} data={this.state.array[i]} toParent={this.toParent} />)
+            }
+
+            return (
+               <>
+                  {arr}
+                  <p>SUMA :: {this.state.suma}</p>
+               </>
+            )
+         }
+
+         toParent = (value, checked) => {
+            for (let i = 0; i < this.state.array.length; i++) {
+               if (this.state.array[i].value == value) {
+                  console.log("BANG BANG BANG")
+                  let tempstate = this.state
+                  tempstate.array[i].checked = checked
+
+                  if (checked == true) tempstate.suma = tempstate.suma + parseInt(value)
+                  else if (checked == false) tempstate.suma = tempstate.suma - parseInt(value)
+
+                  this.setState(tempstate)
+               }
+            }
+         }
+      }
+
+      ReactDOM.render(
+         <MyForm />,
+         document.getElementById('react-app')
+      )
+
+   </script>
+</head>
+
+<body>
+   <div id="react-app"></div>
+</body>
+
+</html>
