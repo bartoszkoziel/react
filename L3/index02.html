@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+
+
+   <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+   <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+
+   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+   <script type="text/babel" defer>
+
+      class MySelect extends React.Component {
+         constructor() {
+            super()
+            this.state = {
+               selected: ""
+            }
+         }
+
+         render() {
+            let data = this.props.data
+            let options = []
+            for (let i = 0; i < data.length; i++) {
+               options.push(<option key={i} value={data[i].name}>{data[i].name}</option>)
+            }
+
+
+            return (
+               <select onChange={this.onSelectChange}>
+                  {options}
+               </select>
+            )
+         }
+
+         componentDidMount() {
+            this.setState({ selected: this.props.data[0].name })
+         }
+
+         onSelectChange = (e) => {
+            this.setState({ selected: e.target.value }, () => { console.log(this.state) })
+            this.props.handleSelect(e.target.value, this.props.myKey)
+         }
+      }
+
+      class MyForm extends React.Component {
+         constructor() {
+            super()
+            this.state = {
+               books: [
+                  { id: 0, name: "hamlet" },
+                  { id: 1, name: "krzyzacy" },
+                  { id: 2, name: "lalka" }
+               ],
+               cities: [
+                  { id: 0, name: "krakow" },
+                  { id: 1, name: "warszawa" },
+                  { id: 2, name: "gdansk" },
+                  { id: 3, name: "torun" }
+               ],
+               data: []
+            }
+         }
+
+         render() {
+            return (
+               <form>
+                  <MySelect myKey="1" data={this.state.books} handleSelect={this.onHandleSelect} />
+                  <MySelect myKey="2" data={this.state.cities} handleSelect={this.onHandleSelect} />
+               </form>
+            )
+         }
+
+         onHandleSelect = (selected, selectid) => {
+            let newstate = this.state
+            newstate.data[selectid - 1] = selected
+            this.setState(newstate, () => {console.log("MYFORM STATE: ", this.state)})
+         }
+      }
+
+      ReactDOM.render(
+         <MyForm />,
+         document.getElementById('react-app')
+      )
+
+   </script>
+</head>
+
+<body>
+   <div id="react-app"></div>
+</body>
+
+</html>
